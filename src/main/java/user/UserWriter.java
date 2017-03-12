@@ -1,23 +1,23 @@
 package user;
 
-import common.LongLike;
-import common.StringLike;
 import cqrs.*;
-import infrastructure.*;
+import infrastructure.ForeignTrace;
+import infrastructure.Logger;
+import infrastructure.Metrics;
 import javaslang.control.Try;
 
-public final class UserWriter {
+final class UserWriter {
 
     private final Logger logger;
     private final Metrics metrics;
     private final EventStore db;
-    private final CommandIdGeneartor cidGenerator;
+    private final CommandIdGenerator cidGenerator;
 
     public UserWriter(
             final Logger logger,
             final Metrics metrics,
             final EventStore db,
-            final CommandIdGeneartor cidGenerator
+            final CommandIdGenerator cidGenerator
     ) {
         this.logger       = logger;
         this.metrics      = metrics;
@@ -58,7 +58,7 @@ public final class UserWriter {
         public final Username username;
         public final PlainTextPassword password;
 
-        public CreateCommand(
+        CreateCommand(
                 final Username username,
                 final PlainTextPassword password,
                 final CommandId commandId,
@@ -82,7 +82,7 @@ public final class UserWriter {
     public static class DisableCommand extends EventStore.Command {
         public final UserId userId;
 
-        public DisableCommand(
+        DisableCommand(
                 final UserId userId,
                 final CommandId commandId,
                 final ActorId actorId,

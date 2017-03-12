@@ -1,6 +1,6 @@
 package cqrs;
 
 @FunctionalInterface
-public interface CommandIdGeneartor {
+public interface CommandIdGenerator {
     CommandId generate();
 }
